@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>qingrenjie</title>
+	<link rel="stylesheet" href="./css/hzhb.css">
+
+	<style>
+		html,
+		body {
+			height: 100%;
+		}
+
+		body {
+			background: url(./assets/bg.png);
+			background-size: 100% 100%;
+			margin: 0;
+			font-family: Helvetica, sans-serif;
+			overflow: hidden;
+		}
+
+		a {
+			color: #ffffff;
+		}
+	</style>
+	<script type="text/javascript" src="./js/particle/three.min.js"></script>
+	<script type="text/javascript" src="./js/particle/dat.gui.min.js"></script>
+	<script type="text/javascript" src="./js/particle/Stats.min.js"></script>
+	<script type="text/javascript" src="./js/particle/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/particle/index.js"></script>
+	<script src="js/card/donghua.js"></script>
+	<script src="js/card/TrackballControls.js"></script>
+	<script src="js/card/CSS3DRenderer.js"></script>
+	<script src="js/card/index.js"></script>
+	<script>
+		function calcRootFontSize () {
+		  window._remRate = 1920 / 100
+		  window._initFontSize = window.innerWidth / window._remRate;
+		  document.documentElement.style.fontSize = window._initFontSize + 'px';
+		}
+		calcRootFontSize();
+		window.addEventListener('resize', calcRootFontSize);
+	  </script>
+</head>
+
+<body>
+	<div class="BG" id="bg">
+		<div id="Stats-output">
+		</div>
+		<div id="WebGL-output">
+		</div>
+	</div>
+	<div id="container"></div>
+	<div id="menu">
+		<button id="table">心形</button>
+		<button id="sphere">球体</button>
+		<button id="helix">螺旋</button>
+		<button id="grid">网格</button>
+		<button id="color-egg"></button>
+	</div>
+	<script>
+		function getmatrix(a, b, c, d, e, f) {
+			var aa = Math.round(180 * Math.asin(a) / Math.PI);
+			var bb = Math.round(180 * Math.acos(b) / Math.PI);
+			var cc = Math.round(180 * Math.asin(c) / Math.PI);
+			var dd = Math.round(180 * Math.acos(d) / Math.PI);
+			var deg = 0;
+			if (aa == bb || -aa == bb) {
+				deg = dd;
+			} else if (-aa + bb == 180) {
+				deg = 180 + cc;
+			} else if (aa + bb == 180) {
+				deg = 360 - cc || 360 - dd;
+			}
+			return deg >= 360 ? 0 : deg;
+		}
+
+		function getmatrix3d(a, b, c, d, e, f) {
+			var aa = Math.round(180 * Math.asin(a) / Math.PI);
+			var bb = Math.round(180 * Math.acos(b) / Math.PI);
+			var cc = Math.round(180 * Math.asin(c) / Math.PI);
+			var dd = Math.round(180 * Math.acos(d) / Math.PI);
+			var deg = 0;
+			if (aa == bb || -aa == bb) {
+				deg = dd;
+			} else if (-aa + bb == 180) {
+				deg = 180 + cc;
+			} else if (aa + bb == 180) {
+				deg = 360 - cc || 360 - dd;
+			}
+			return deg >= 360 ? 0 : deg;
+		}
+		function cb (data) {
+			const card = Card(window, data)
+			card.Init()
+		}
+	</script>
+	<script src="./img_list.js?jsoncallback=cb"></script>
+</body>
+
+</html>

@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="css/box.css" />
+  <link rel="stylesheet" href="css/max.box.css" />
+  <link rel="stylesheet" href="css/min.box.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="./css/hzhb.css">
+
+
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="text/javascript" src="./js/particle/three.min.js"></script>
+  <script type="text/javascript" src="./js/particle/dat.gui.min.js"></script>
+  <script type="text/javascript" src="./js/particle/Stats.min.js"></script>
+  <script type="text/javascript" src="./js/particle/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/particle/index.js"></script>
+  <script src="js/card/tween.min.js"></script>
+  <script src="js/card/TrackballControls.js"></script>
+  <script src="js/card/OrbitControls.js"></script>
+  <script src="js/card/CSS3DRenderer.js"></script>
+  <script src="js/card/index.js"></script>
+  <script>
+    function calcRootFontSize() {
+      window._remRate = 1920 / 100;
+      window._initFontSize = window.innerWidth / window._remRate;
+      document.documentElement.style.fontSize = window._initFontSize + 'px';
+    }
+    calcRootFontSize();
+    window.addEventListener('resize', calcRootFontSize);
+  </script>
+  <div id="container"></div>
+  <div class="star-container">
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+  </div>
+  <div id="box">
+    <ul class="minbox" id="minbox"></ul>
+    <ol class="maxbox" id="maxbox"></ol>
+  </div>
+  <span class="btn" onclick="clickLoveBtn()"></span>
+  <div id="preview-box"></div>
+  <script type="text/javascript" src="./js/particle/jquery.min.js"></script>
+  <script src="./js/data/list.js"></script>
+  <script>
+    const box = document.querySelector('#box');
+    const minbox = document.querySelector('.minbox');
+    const maxbox = document.querySelector('.maxbox');
+    var mofangVisible = true;
+    var imgList = getImgList();
+    var loveList = getLoveList();
+    var backupImgList = []
+
+    function createElement(src) {
+      const wrap = document.createElement('li');
+      const img = document.createElement('img');
+      img.setAttribute("class", "img-item")
+      img.src = src;
+      wrap.appendChild(img);
+      return wrap;
+    }
+    function readTextFile(file) {
+      return new Promise((resolve) => {
+        const xhrFile = new XMLHttpRequest();
+        xhrFile.open('GET', file, true);
+        xhrFile.onload = function () {
+          const allText = xhrFile.response;
+          resolve(allText);
+        };
+        xhrFile.send();
+      });
+    }
+    $(function () {
+      $('.maxbox > li').on('click', function () {
+        // 复制图片到预览div中
+        $(this).find('img').clone().appendTo('#preview-box');
+        // 显示预览div
+        $('#preview-box').addClass('show-preview');
+      });
+
+
+      $('#preview-box').on('click', function () {
+        // 重新启动旋转
+        $('#box').removeClass('paused-rotate');
+        // 移除预览图片，移除类名
+        $(this).removeClass('show-preview');
+        setTimeout(() => {
+          $(this).empty();
+        }, 1000);
+      });
+    })
+    function bindImgClick() {
+    }
+
+    bindImgClick()
+
+    function clickLoveBtn() {
+      mofangVisible = !mofangVisible
+
+      if (mofangVisible) {
+        cb(backupImgList)
+        $(function () {
+          // $('#box').on('mouseover', function () {
+          // 	// 暂停旋转
+          //   $(this).addClass('paused-rotate');
+          // });
+
+          // $('#box').on('mouseleave', function () {
+          // 	if ($('#preview-box').hasClass('show-preview')) return;
+          // 	// 如果当前没有展示图片，则鼠标移出时重新启动旋转
+          //   $('#box').removeClass('paused-rotate');
+          // });
+
+          $('.maxbox > li').on('click', function () {
+            // 复制图片到预览div中
+            $(this).find('img').clone().appendTo('#preview-box');
+            // 显示预览div
+            $('#preview-box').addClass('show-preview');
+          });
+
+          $('#preview-box').on('click', function () {
+            // 重新启动旋转
+            $('#box').removeClass('paused-rotate');
+            // 移除预览图片，移除类名
+            $(this).removeClass('show-preview');
+            setTimeout(() => {
+              $(this).empty();
+            }, 1000);
+          });
+        })
+        removeLove()
+      } else {
+        createLove(loveList)
+        removeMofang()
+        $('#preview-box').empty()
+      }
+    }
+
+    // 移除魔方
+    function removeMofang() {
+      $('#minbox').empty()
+      $('#maxbox').empty()
+
+    }
+
+    function cb(data) {
+      backupImgList = data
+      const list = data.list.slice(1).map((item) => item.filename);
+      const bg = data.list[0].filename;
+      document.body.style = `background: url("${bg}"); background-size: 100% 100%;`;
+      list.forEach((item, idx) => {
+        minbox.appendChild(createElement(item));
+        maxbox.appendChild(createElement(item));
+      });
+    }
+
+    function createLove(data) {
+      const card = Card(window, data)
+      card.Init()
+    }
+    function removeLove() {
+      $('#cardBigBox').remove()
+    }
+    function getmatrix(a, b, c, d, e, f) {
+      var aa = Math.round(180 * Math.asin(a) / Math.PI);
+      var bb = Math.round(180 * Math.acos(b) / Math.PI);
+      var cc = Math.round(180 * Math.asin(c) / Math.PI);
+      var dd = Math.round(180 * Math.acos(d) / Math.PI);
+      var deg = 0;
+      if (aa == bb || -aa == bb) {
+        deg = dd;
+      } else if (-aa + bb == 180) {
+        deg = 180 + cc;
+      } else if (aa + bb == 180) {
+        deg = 360 - cc || 360 - dd;
+      }
+      return deg >= 360 ? 0 : deg;
+    }
+
+    function getmatrix3d(a, b, c, d, e, f) {
+      var aa = Math.round(180 * Math.asin(a) / Math.PI);
+      var bb = Math.round(180 * Math.acos(b) / Math.PI);
+      var cc = Math.round(180 * Math.asin(c) / Math.PI);
+      var dd = Math.round(180 * Math.acos(d) / Math.PI);
+      var deg = 0;
+      if (aa == bb || -aa == bb) {
+        deg = dd;
+      } else if (-aa + bb == 180) {
+        deg = 180 + cc;
+      } else if (aa + bb == 180) {
+        deg = 360 - cc || 360 - dd;
+      }
+      return deg >= 360 ? 0 : deg;
+    }
+    // createMofang(imgList)
+  </script>
+</body>
+<script src="./img_list.js?jsoncallback=cb"></script>
+</html>
